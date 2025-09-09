@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
@@ -10,24 +10,22 @@ export default defineConfig({
   },
   root: '.',
   publicDir: 'public',
-  base: './', // Add this for proper asset paths
+  base: '/',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    sourcemap: true, // Enable source maps for better debugging
+    sourcemap: false,
     rollupOptions: {
-      input: 'index.html',
       output: {
         manualChunks: {
-          react: ['react', 'react-dom'],
-          vendor: ['react-router-dom', 'styled-components']
+          react: ['react', 'react-dom', 'react-router-dom'],
+          vendor: ['styled-components', 'framer-motion'],
+          icons: ['react-icons']
         }
       }
-    },
-    chunkSizeWarningLimit: 1000 // Increase chunk size warning limit
+    }
   },
-  // Add this for Vercel deployment
   define: {
     'process.env': {}
   }
-})
+});
